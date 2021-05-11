@@ -39,17 +39,20 @@ public class Main {
             oos.writeObject(gameProgress);
         }
     }
-
-    public static void zipFiles(String zipPath, List<String> list ) throws FileNotFoundException, IOException {
-        for (int i = 0; i < list.size(); i++) {
-            try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(zipPath));
-            FileInputStream fis = new FileInputStream(list.get(i))){
-                ZipEntry entry = new ZipEntry(list.get(i));
-                zout.putNextEntry(entry);
-                byte[] buffer = new byte[fis.available()];
-                fis.read(buffer);
-                zout.write(buffer);
-                zout.closeEntry();
+/*
+Для создания архива используется класс ZipOutputStream
+Для считывания данных из файла предназначен класс FileInputStream
+ */
+    public static void zipFiles(String zipPath, List<String> zipPackList) throws FileNotFoundException, IOException {
+        try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(zipPath))) {
+            for (int i = 0; i < zipPackList.size(); i++) {
+                FileInputStream fis = new FileInputStream(zipPackList.get(i));
+                    ZipEntry entry = new ZipEntry(zipPackList.get(i));
+                    zout.putNextEntry(entry);
+                    byte[] buffer = new byte[fis.available()];
+                    fis.read(buffer);
+                    zout.write(buffer);
+                    zout.closeEntry();
             }
         }
     }
