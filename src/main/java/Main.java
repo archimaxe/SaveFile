@@ -6,7 +6,6 @@
  */
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -44,6 +43,7 @@ public class Main {
 Для считывания данных из файла предназначен класс FileInputStream
  */
     public static void zipFiles(String zipPath, List<String> zipPackList) throws FileNotFoundException, IOException {
+        File deletePath = new File("C:\\Users\\razel\\Desktop\\Новая папка\\Setup\\Games\\savegames");
         try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(zipPath))) {
             for (int i = 0; i < zipPackList.size(); i++) {
                 FileInputStream fis = new FileInputStream(zipPackList.get(i));
@@ -53,7 +53,12 @@ public class Main {
                     fis.read(buffer);
                     zout.write(buffer);
                     zout.closeEntry();
+                    if (!deletePath.equals("zip.zip")){
+                        deletePath.delete();
+                    }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
