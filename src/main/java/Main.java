@@ -53,12 +53,12 @@ public class Main {
                     fis.read(buffer);
                     zout.write(buffer);
                     zout.closeEntry();
-                    if (!deletePath.equals("zip.zip")){
-                        deletePath.delete();
-                    }
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if (!deletePath.equals("zip.zip")){
+            deletePath.delete();
         }
     }
 }
